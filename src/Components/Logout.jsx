@@ -10,7 +10,7 @@ const Logout = () => {
 
   // * Promises
   useEffect(() => {
-    fetch(process.env.BACKEND_URL+"/Logout", {
+    fetch("https://lancerplanet-backend.adaptable.app//Logout", {
       method: "GET",
       headers: {
         Accept: "application/json",

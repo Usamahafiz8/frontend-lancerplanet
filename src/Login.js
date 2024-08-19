@@ -28,7 +28,7 @@ const Login = () => {
     const PostData = async (e) => {
         e.preventDefault();
         const { name, email, phone, password, cpassword } = user;
-        const res = await fetch(process.env.BACKEND_URL+"/register", {
+        const res = await fetch("https://lancerplanet-backend.adaptable.app/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -92,33 +92,43 @@ const Login = () => {
 
     const loginUser = async (e) => {
         e.preventDefault();
-        const res = await fetch(process.env.BACKEND_URL+'/Login', { 
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email: logemail,    
-                password: logpass
-            })
-        }); 
-        const data = res.json(  );
-        if (res.status === 400 || !data) {
-            toast.error("Invalid Credentials", {
-                position: "bottom-right",
-                theme: "colored"
-            });
-        } else {
-            dispatch({ type: "USER", payload: true })
-            toast.success("Login Successful", {
-                position: "bottom-right",
-                theme: "colored"
-            });
-            setTimeout(() => {
-                navigate('/FindJobs')
-            }, 2000);
+        try {
+            const res = await fetch('https://lancerplanet-backend.adaptable.app/Login', { 
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: logemail,    
+                    password: logpass
+                })
+            }); 
+    
+            const data = await res.json();
+            
+            if (res.status === 400 || !data) {
+                toast.error("Invalid Credentials", {
+                    position: "bottom-right",
+                    theme: "colored"
+                });
+            } else {
+                // Store login status in localStorage
+                localStorage.setItem('user', JSON.stringify(data.user));  // Assuming 'data.user' contains user info
+                
+                dispatch({ type: "USER", payload: true })
+                toast.success("Login Successful", {
+                    position: "bottom-right",
+                    theme: "colored"
+                });
+                setTimeout(() => {
+                    navigate('/FindJobs');  // Redirect to the desired page
+                }, 2000);
+            }
+        } catch (error) {
+            console.error("Error during login:", error);
         }
     }
+    
 
 
     //* Tackling GUI of Login/Signup Page 

@@ -27,7 +27,7 @@ const FindFreelancer = () => {
     const callFF = async () => {
 
         try {
-            const res = await fetch(process.env.BACKEND_URL+'/FreelancersFetch', {
+            const res = await fetch('https://lancerplanet-backend.adaptable.app/FreelancersFetch', {
                 method: "GET",                        //! IMP
                 headers: {
                     Accept: "application/json",

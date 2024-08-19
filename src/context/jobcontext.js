@@ -16,14 +16,14 @@ const FilterJobs = ({ children }) => {
         jobs: [],
         isSingleLoading: false,
         singleJob: {},
-    };
+    };  
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const getJobs = async () => {
         dispatch({ type: "SET_LOADING" });
         try {
-            const res = await fetch(process.env.BACKEND_URL+"/JobsFetch", {
+            const res = await fetch("https://lancerplanet-backend.adaptable.app/JobsFetch", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const FilterJobs = ({ children }) => {
     const getSingleJob = async (_id) => {
         dispatch({ type: "SET_SINGLE_LOADING" });
         try {
-            const res = await fetch(process.env.BACKEND_URL+"/JobsFetch", {
+            const res = await fetch("https://lancerplanet-backend.adaptable.app/JobsFetch", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

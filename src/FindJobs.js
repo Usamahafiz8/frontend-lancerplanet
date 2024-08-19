@@ -32,7 +32,7 @@ const FindJobs = () => {
     const callFJ = async () => {
 
         try {
-            const res = await fetch(process.env.BACKEND_URL+'/Findjobs', {
+            const res = await fetch('https://lancerplanet-backend.adaptable.app/Findjobs', {
                 method: "GET",                        //! IMP
                 headers: {
                     Accept: "application/json",
